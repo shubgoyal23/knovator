@@ -1,3 +1,5 @@
+import convert from "xml-js";
+
 const userDataRemoveSensitiveData = (user) => {
    let data = user.toObject();
 
@@ -13,4 +15,9 @@ const userDataRemoveSensitiveData = (user) => {
    return data;
 };
 
-export { userDataRemoveSensitiveData };
+const parseXML = (xml) => {
+   const result = convert.xml2js(xml, { compact: true });
+   return result;
+};
+
+export { userDataRemoveSensitiveData, parseXML };

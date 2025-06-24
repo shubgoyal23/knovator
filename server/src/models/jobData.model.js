@@ -8,23 +8,10 @@ const jobSchema = new mongoose.Schema(
       pubDate: { type: Date },
       description: { type: String },
       encoded: { type: String },
-      content: {
-         url: { type: String },
-         medium: { type: String },
-         prefix: { type: String },
-      },
-      location: {
-         prefix: { type: String },
-         cdata: { type: String },
-      },
-      job_type: {
-         prefix: { type: String },
-         cdata: { type: String },
-      },
-      company: {
-         prefix: { type: String },
-         cdata: { type: String },
-      },
+      url: { type: String },
+      location: { type: String },
+      job_type: { type: String },
+      company: { type: String },
       isDeleted: { type: Boolean, default: false },
       isActive: { type: Boolean, default: true },
    },
