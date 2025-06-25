@@ -1,3 +1,4 @@
+"use client";
 import toast from "react-hot-toast";
 import {
    Form,
@@ -25,6 +26,8 @@ import { api } from "@/lib/api";
 import { useDispatch } from "react-redux";
 import { login } from "@/store/userSlice/userSlice";
 import GoogleLogin from "@/components/common/GoogleLogin";
+import Link from "next/link";
+import { useRouter } from 'next/navigation'
 
 const loginSchema = z.object({
    email: z.string().email(),
@@ -32,8 +35,9 @@ const loginSchema = z.object({
 });
 
 // Login Component
-const LoginPage = ({ setCurrentPage }) => {
+const LoginPage = () => {
    const dispatch = useDispatch();
+   const router = useRouter();
    const form = useForm({
       resolver: zodResolver(loginSchema),
       defaultValues: {
@@ -52,6 +56,7 @@ const LoginPage = ({ setCurrentPage }) => {
             if (res.success) {
                dispatch(login(res.data));
                toast.success("Logged in successfully");
+               router.push("/");
             }
          })
          .catch((err) => {
@@ -69,13 +74,11 @@ const LoginPage = ({ setCurrentPage }) => {
                   Enter your email below to login to your account
                </CardDescription>
                <CardAction>
-                  <Button
-                     variant="link"
-                     className={"cursor-pointer"}
-                     onClick={() => setCurrentPage("register")}
-                  >
-                     Sign Up
-                  </Button>
+                  <Link href="/register">
+                     <Button variant="link" className={"cursor-pointer"}>
+                        Sign Up
+                     </Button>
+                  </Link>
                </CardAction>
             </CardHeader>
             <CardContent>
@@ -122,7 +125,7 @@ const LoginPage = ({ setCurrentPage }) => {
                >
                   Login
                </Button>
-               <GoogleLogin/>
+               <GoogleLogin />
             </CardFooter>
          </Card>
       </div>

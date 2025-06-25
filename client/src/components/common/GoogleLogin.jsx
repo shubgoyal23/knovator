@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 import { Button } from "@/components/ui/button";

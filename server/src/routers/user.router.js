@@ -17,7 +17,7 @@ router.route("/login-google").post(loginUserGoogle);
 router.route("/renew-token").get(refreshToken);
 
 //secure route
-router.route("/logout").get(verifyJwt, logoutUser);
 router.route("/current").get(verifyJwt, currentUser);
+router.route("/logout").get(verifyJwt, logoutUser);
 
 export default router;

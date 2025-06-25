@@ -22,12 +22,12 @@ const generateAccessTokenAndRefresToken = async (id) => {
    }
 };
 const registeruser = asyncHandler(async (req, res) => {
-   const { firstName, lastName, email, password } = req.body;
+   const { name, email, password } = req.body;
 
-   if (!firstName || !email || !password) {
+   if (!name || !email || !password) {
       throw new ApiError(
          401,
-         "firstName, Email, and Password is required to register user"
+         "Name, Email, and Password is required to register user"
       );
    }
 
@@ -35,12 +35,12 @@ const registeruser = asyncHandler(async (req, res) => {
    if (checkuser) {
       throw new ApiError(403, "User with same Email id is already registered");
    }
-
+   const fullName = name.trim().toLowerCase().split(" ");
    const user = await User.create({
       email,
       password,
-      firstName,
-      lastName,
+      firstName: fullName[0],
+      lastName: fullName[1],
       isActive: false,
    });
    const checkUserRegistered = await User.findOne({ email });
@@ -49,13 +49,7 @@ const registeruser = asyncHandler(async (req, res) => {
    }
    return res
       .status(200)
-      .json(
-         new ApiResponse(
-            200,
-            null,
-            "user Registered successfully"
-         )
-      );
+      .json(new ApiResponse(200, null, "user Registered successfully"));
 });
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -169,7 +163,7 @@ const loginUserGoogle = asyncHandler(async (req, res) => {
       secure: true,
       maxAge: 365 * 24 * 60 * 60 * 1000,
    };
-   let user = userDataRemoveSensitiveData(finduser)
+   let user = userDataRemoveSensitiveData(finduser);
 
    return res
       .status(200)

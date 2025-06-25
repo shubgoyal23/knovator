@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 import userRouter from "./routers/user.router.js";
 import jobRouter from "./routers/job.router.js";
 
-app.use("/api/v1/users", userRouter);
+app.use("/api/v1/auth", userRouter);
 app.use("/api/v1/jobs", jobRouter);
 
 app.use((err, req, res, next) => {
